@@ -1,0 +1,24 @@
+# secrets
+.env
+*.key
+*_key.json
+tailscale-authkey*
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# model weights / large artifacts
+*.gguf
+*.safetensors
+*.bin
+models/
+checkpoints/
+
+# node
+node_modules/
+
+# os
+.DS_Store
