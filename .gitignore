@@ -10,6 +10,10 @@ __pycache__/
 .venv/
 venv/
 
+# nightly-scan runtime state
+nightly-scan.log
+.nightly-scan-seen.json
+
 # model weights / large artifacts
 *.gguf
 *.safetensors
@@ -22,3 +26,7 @@ node_modules/
 
 # os
 .DS_Store
+
+# local reports/state (list every song path - keep out of this public repo)
+suno-lrc-report*.tsv
+.transcribe-instrumental.json
