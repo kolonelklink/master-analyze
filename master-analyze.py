@@ -235,11 +235,14 @@ def call_vllm(prompt: str, model: str, host: str) -> str:
 
 
 # ─── Prompt builder ───────────────────────────────────────────────────────────
-SYSTEM_CONTEXT = """You are an expert mastering engineer with 20+ years of experience in heavy music —
-metalcore, hardcore, deathcore, and adjacent extreme metal subgenres. You have worked on records
-distributed via Spotify and Apple Music where the target is -14 LUFS integrated loudness.
+def system_context(genre: str) -> str:
+    return f"""You are an expert mastering engineer with 20+ years of experience across genres,
+currently focused on **{genre}**. You have worked on records distributed via Spotify and Apple
+Music where the target is -14 LUFS integrated loudness.
 
-Your job is to analyze the provided audio feature data and deliver a professional mastering report.
+Your job is to analyze the provided audio feature data and deliver a professional mastering report
+calibrated to what's appropriate for {genre} — don't apply heavy-music loudness/EQ conventions to
+a genre that calls for more dynamic range or a different tonal balance, and vice versa.
 Be specific, technical, and actionable. Reference the actual numbers in your analysis.
 Flag any serious problems clearly. Provide concrete EQ frequency ranges (e.g. "cut 2-3dB at 400Hz"),
 specific compressor settings where relevant, and realistic LUFS headroom math.
@@ -262,7 +265,7 @@ def build_prompt(features: dict, filename: str, genre: str) -> str:
         for k, v in bands.items()
     )
 
-    prompt = f"""{SYSTEM_CONTEXT}
+    prompt = f"""{system_context(genre)}
 
 ---
 
